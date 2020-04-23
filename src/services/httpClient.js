@@ -10,4 +10,11 @@ const httpClient = axios.create({
   }
 });
 
+const getAuthToken = () => localStorage.getItem("auth_token");
+
+httpClient.interceptors.request.use(config => {
+  config.headers.Authorization = getAuthToken();
+  return config;
+});
+
 export default httpClient;
