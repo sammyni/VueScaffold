@@ -1,7 +1,8 @@
-/*jshint esversion: 6*/
+/*jshint esversion: 9*/
+import { getUser } from "@/services/api/user.api";
 
 const initialState = () => ({
-  username: "user"
+  user: {}
 });
 
 // State
@@ -9,8 +10,8 @@ const state = initialState();
 
 // Getter
 const getters = {
-  getUsername(state) {
-    return state.username;
+  getUser(state) {
+    return state.user;
   }
 };
 
@@ -18,6 +19,14 @@ const getters = {
 const actions = {
   reset({ commit }) {
     commit("RESET");
+  },
+  async getUser({ commit }, userId) {
+    try {
+      const response = await getUser(userId);
+      commit("SET_USER", response.data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 
@@ -26,6 +35,9 @@ const mutations = {
   RESET(state) {
     const newState = initialState();
     Object.keys(newState).forEach(key => (state[key] = newState[key]));
+  },
+  SET_USER(state, user) {
+    state.user = user;
   }
 };
 
