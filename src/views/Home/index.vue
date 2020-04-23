@@ -6,8 +6,9 @@
 </template>
 
 <script>
+/*jshint esversion: 6*/
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import HelloWorld from "@/components/common/HelloWorld.vue";
 
 export default {
   name: "Home",

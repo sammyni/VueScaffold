@@ -1,9 +1,5 @@
 /*jshint esversion: 6*/
 
-/**
- * Import all
- */
-
 const requireModule = require.context(".", false, /\.store\.js$/);
 const modules = {};
 

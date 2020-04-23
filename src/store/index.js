@@ -1,6 +1,8 @@
 /*jshint esversion: 6*/
 
 import Vue from "vue";
+/*jshint esversion: 6*/
+
 import Vuex from "vuex";
 import createLogger from "vuex/dist/logger";
 

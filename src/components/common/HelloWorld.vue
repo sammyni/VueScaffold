@@ -127,6 +127,8 @@
 </template>
 
 <script>
+/*jshint esversion: 6*/
+
 export default {
   name: "HelloWorld",
   props: {
