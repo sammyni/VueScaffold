@@ -39,6 +39,7 @@
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
-  }
+    "vue-template-compiler": "^0.2.1"
+  },
+  "resolutions": { "**/**/minimist": "^^0.2.5" }
 }
