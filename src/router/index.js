@@ -1,32 +1,62 @@
-/*jshint esversion: 6*/
+/*jshint esversion: 9*/
 
-import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home";
-
-Vue.use(VueRouter);
+import NotFound from "@/views/PageNotFound";
+import { loginPath, userDashboardPath } from "@/config/route.config";
+import { checkAuth } from "@/services/api/auth.api";
+import authRoutes from "./auth";
+import accountRoutes from "./account";
 
 const routes = [
+  authRoutes,
+  accountRoutes,
   {
-    path: "/",
-    name: "Home",
-    component: Home
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About")
+    path: "*",
+    name: "NotFound",
+    component: NotFound
   }
 ];
 
 const router = new VueRouter({
+  routes,
   mode: "history",
-  base: process.env.BASE_URL,
-  routes
+  linkActiveClass: "active",
+  base: process.env.BASE_URL
+});
+
+router.beforeEach(async (to, from, next) => {
+  const isProtected = to.matched.some(route => route.meta.protected);
+  const isGuest = to.matched.some(route => route.meta.guest);
+
+  if (isProtected) {
+    const isAuthorized = await checkAuth();
+
+    if (!isAuthorized) {
+      return next({
+        path: loginPath,
+        props: {
+          redirectTo: to.fullPath
+        }
+      });
+    }
+
+    return next();
+  }
+
+  if (isGuest) {
+    const isAuthorized = await checkAuth();
+    if (isAuthorized) {
+      return next({
+        path: userDashboardPath,
+        props: {
+          redirectTo: to.fullPath
+        }
+      });
+    }
+    return next();
+  }
+
+  return next();
 });
 
 export default router;

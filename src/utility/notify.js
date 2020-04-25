@@ -1,5 +1,5 @@
 /*jshint esversion: 9*/
-import Vue from "Vue";
+import Vue from "vue";
 
 const notification = {};
 const notificationDefaultConfig = {
