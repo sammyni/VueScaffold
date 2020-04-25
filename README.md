@@ -1,4 +1,5 @@
-# bn.web.app
+# Vue Scaffold
+Minimal scaffold for large vue project using vue cli
 
 ## Project setup
 ```
